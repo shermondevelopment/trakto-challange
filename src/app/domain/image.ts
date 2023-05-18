@@ -4,5 +4,5 @@ export interface ImageTransformProperty {
 }
 
 export interface TransformImage {
-  execute(imageOptions: ImageTransformProperty)
+  execute(imageOptions: ImageTransformProperty): Promise<void>
 }

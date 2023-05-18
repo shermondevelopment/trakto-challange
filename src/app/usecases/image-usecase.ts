@@ -21,9 +21,12 @@ export class TransformImageUseCase implements TransformImage {
     /* saving original image */
     fs.writeFileSync(originalPath, imageToBuffer)
 
-    /* save image thumbnail */
+    /* save image thumbnail compact */
     await sharp(imageToBuffer)
       .resize(720, 720, { fit: 'inside' })
+      .jpeg({
+        quality: Math.round(compress * 100)
+      })
       .toFile(thumbnailPath)
   }
 }

@@ -8,6 +8,6 @@ export class ImageTransformController {
 
   @Post('/api/image')
   async transform(@Body() data: ImageTransformDTO) {
-    console.log(data)
+    await this.imageTransformUseCase.execute(data)
   }
 }

@@ -11,6 +11,17 @@ export interface ImageTransformResponse {
   metadata: any
 }
 
+export interface ImageErrorBadRequest {
+  errors: [
+    {
+      code: number
+      message: string
+    }
+  ]
+}
+
 export interface TransformImage {
-  execute(imageOptions: ImageTransformProperty): Promise<ImageTransformResponse>
+  execute(
+    imageOptions: ImageTransformProperty
+  ): Promise<ImageTransformResponse | ImageErrorBadRequest>
 }

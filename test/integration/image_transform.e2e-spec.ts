@@ -50,5 +50,17 @@ describe('TransformImageContoller', () => {
       expect(localpath.thumb).not.toEqual(localpath.original)
       expect(metadata).toBeDefined()
     })
+    it('should get an error if image transformation fails', async () => {
+      const imageOptions = {
+        image: 'https://example.com/image.jpg',
+        compress: 0.9
+      }
+
+      const response = await request(app.getHttpServer())
+        .post('/image/save')
+        .send(imageOptions)
+
+      expect(response.body.errors[0]).not.toBeNull()
+    })
   })
 })

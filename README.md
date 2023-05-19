@@ -15,36 +15,39 @@
 - Docker
 
 ---
-
-## Description
-
-<p>
-Challenge proposed by the company trakto, to create a new compressed image
-</p>
-
-## 🏁 running the application with docker
-
-<h3 style="color:#ef4444; font-weight: bolder">Notice</h3>
-
+<br> 
+<b style="color:#FF6347">NOTICE</b>
 <p>
   To run the step below to run the application you must have docker and docker-compose installed on your machine you can get more information here <a href="https://docs.docker.com/engine/install/">install docker.</a>
 </p>
+
 <br />
 
-<h3>First step:<h3/>
+<h3>
+  1. Clone the repository
+</h3>
+
+```
+ https://github.com/shermondevelopment/trakto-challange.git
+```
+
+<h3>
+  1. upload a mongodb database with docker-compose
+</h3>
 
 ```
 docker-compose up -d
 ```
-<p>
-  Now that we have mongodb running on our machine let's go to the next step
-</p>
 
-<h3>Second step:<h3/>
+<h3>
+  2. install all dependencies
+</h3>
 
 ```
-yarn start or npm start
+yarn install or npm install
 ```
+
+<h3></h3>
 
 ```
 app running by default on port 3000 🚀🚀🚀🚀🚀

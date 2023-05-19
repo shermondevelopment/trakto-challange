@@ -35,5 +35,20 @@ describe('TransformImageContoller', () => {
       expect(localpath.thumb).toEqual(localpath.original)
       expect(metadata).toBeDefined()
     })
+    it('should transform and compress the image with dimension greater than 720 pixels', async () => {
+      const imageOptions = {
+        image:
+          'https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        compress: 0.9
+      }
+
+      const response = await request(app.getHttpServer())
+        .post('/image/save')
+        .send(imageOptions)
+      const { localpath, metadata } = response.body
+
+      expect(localpath.thumb).not.toEqual(localpath.original)
+      expect(metadata).toBeDefined()
+    })
   })
 })

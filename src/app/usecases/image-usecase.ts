@@ -16,6 +16,10 @@ export class TransformImageUseCase implements TransformImage {
 
     const pathImageToSaved = path.join(__dirname, '../../../uploads')
 
+    if (!fs.existsSync(pathImageToSaved)) {
+      fs.mkdirSync(pathImageToSaved)
+    }
+
     const fileName = generate()
 
     const originalPath = path.join(pathImageToSaved, `${fileName}.jpg`)

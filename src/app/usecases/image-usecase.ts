@@ -74,7 +74,8 @@ export class TransformImageUseCase implements TransformImage {
       localpath: {
         original: originalPath,
         thumb: resizedImagePath
-      }
+      },
+      metadata: metadata
     }
   }
 }

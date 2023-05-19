@@ -4,6 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { ImageTransformController } from './app/infra/http/controller/image-controler'
 import { TransformImageUseCase } from './app/usecases/image-usecase'
 import { ImageSchema } from './app/infra/http/schemas/image.schema'
+import { IImageRepository } from './app/repositories/image-irepository'
+import { ImageRepository } from './app/infra/database/repositories/image-repository'
 
 @Module({
   imports: [
@@ -15,6 +17,12 @@ import { ImageSchema } from './app/infra/http/schemas/image.schema'
     MongooseModule.forFeature([{ name: 'Image', schema: ImageSchema }])
   ],
   controllers: [ImageTransformController],
-  providers: [TransformImageUseCase]
+  providers: [
+    TransformImageUseCase,
+    {
+      provide: IImageRepository,
+      useClass: ImageRepository
+    }
+  ]
 })
 export class AppModule {}

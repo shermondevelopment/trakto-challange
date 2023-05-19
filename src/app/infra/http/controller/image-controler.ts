@@ -8,6 +8,9 @@ export class ImageTransformController {
 
   @Post('/api/image')
   async transform(@Body() data: ImageTransformDTO) {
-    await this.imageTransformUseCase.execute(data)
+    const responseImageTransform = await this.imageTransformUseCase.execute(
+      data
+    )
+    return responseImageTransform
   }
 }

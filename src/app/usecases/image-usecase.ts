@@ -69,5 +69,12 @@ export class TransformImageUseCase implements TransformImage {
         .toBuffer()
       fs.writeFileSync(resizedImagePath, compressedImage)
     }
+
+    return {
+      localpath: {
+        original: originalPath,
+        thumb: resizedImagePath
+      }
+    }
   }
 }

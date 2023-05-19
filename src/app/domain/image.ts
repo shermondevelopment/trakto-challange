@@ -3,6 +3,13 @@ export interface ImageTransformProperty {
   compress: number
 }
 
+export interface ImageTransformResponse {
+  localpath: {
+    original: string
+    thumb: string
+  }
+}
+
 export interface TransformImage {
-  execute(imageOptions: ImageTransformProperty): Promise<void>
+  execute(imageOptions: ImageTransformProperty): Promise<ImageTransformResponse>
 }

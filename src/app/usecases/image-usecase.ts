@@ -4,6 +4,7 @@ import axios from 'axios'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as sharp from 'sharp'
+import { generate } from 'randomstring'
 
 @Injectable()
 export class TransformImageUseCase implements TransformImage {
@@ -15,8 +16,13 @@ export class TransformImageUseCase implements TransformImage {
 
     const pathImageToSaved = path.join(__dirname, '../../../uploads')
 
-    const originalPath = path.join(pathImageToSaved, 'original.jpg')
-    const thumbnailPath = path.join(`${pathImageToSaved}`, 'thumb.jpg')
+    const fileName = generate()
+
+    const originalPath = path.join(pathImageToSaved, `${fileName}.jpg`)
+    const thumbnailPath = path.join(
+      `${pathImageToSaved}`,
+      `${fileName}_thumb.jpg`
+    )
 
     /* saving original image */
     fs.writeFileSync(originalPath, imageToBuffer)

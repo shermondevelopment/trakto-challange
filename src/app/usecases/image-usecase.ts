@@ -5,9 +5,16 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as sharp from 'sharp'
 import { generate } from 'randomstring'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
+import { Image } from '../infra/http/schemas/image.schema'
 
 @Injectable()
 export class TransformImageUseCase implements TransformImage {
+  constructor(
+    @InjectModel('Image') private readonly imageModel: Model<Image>
+  ) {}
+
   async execute(imageOptions: ImageTransformProperty) {
     const { image, compress } = imageOptions
 
@@ -69,6 +76,14 @@ export class TransformImageUseCase implements TransformImage {
         .toBuffer()
       fs.writeFileSync(resizedImagePath, compressedImage)
     }
+
+    const imageModel = new this.imageModel({
+      originalPath,
+      thumbPath: resizedImagePath,
+      metadata
+    })
+
+    await imageModel.save()
 
     return {
       localpath: {

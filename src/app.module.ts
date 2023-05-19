@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
 import { ImageTransformController } from './app/infra/http/controller/image-controler'
 import { TransformImageUseCase } from './app/usecases/image-usecase'
+import { ImageSchema } from './app/infra/http/schemas/image.schema'
 
 @Module({
   imports: [
@@ -10,7 +11,8 @@ import { TransformImageUseCase } from './app/usecases/image-usecase'
       isGlobal: true,
       envFilePath: '.env'
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/trakto')
+    MongooseModule.forRoot('mongodb://trakto:trakto_pass@localhost:27017'),
+    MongooseModule.forFeature([{ name: 'Image', schema: ImageSchema }])
   ],
   controllers: [ImageTransformController],
   providers: [TransformImageUseCase]

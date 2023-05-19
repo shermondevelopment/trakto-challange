@@ -1,18 +1,13 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { HydratedDocument } from 'mongoose'
+import { Schema, Document } from 'mongoose'
 
-export type ImageDocument = HydratedDocument<Image>
-
-@Schema()
-export class Image {
-  @Prop()
+export interface Image extends Document {
   originalPath: string
-
-  @Prop()
-  thumbnailPath: string
-
-  @Prop()
-  metadata: string
+  thumbPath: string
+  metadata: Record<string, any>
 }
 
-export const ImageSchema = SchemaFactory.createForClass(Image)
+export const ImageSchema = new Schema<Image>({
+  originalPath: String,
+  thumbPath: String,
+  metadata: Schema.Types.Mixed
+})

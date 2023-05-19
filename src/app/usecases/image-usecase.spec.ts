@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { TransformImageUseCase } from './image-usecase'
 import { IImageRepository } from '../repositories/image-irepository'
 import { ImageTransformResponse } from '../domain/image'
@@ -65,5 +66,20 @@ describe('TransformImageUseCase', () => {
     expect(result).toHaveProperty('metadata')
     expect(result.localpath).toHaveProperty('original')
     expect(result.localpath).toHaveProperty('thumb')
+  })
+
+  it('should resize the image if its dimensions exceed 720px', async () => {
+    const imageOptions = {
+      image: 'http://myimage.com/image.jpg',
+      compress: 0.8
+    }
+
+    await transformImageUseCase.execute(imageOptions)
+
+    expect(require('sharp')).toHaveBeenCalledWith(
+      Buffer.from('dummyImageData', 'binary')
+    )
+    expect(require('sharp')().resize).toHaveBeenCalledWith(720, 540)
+    expect(require('sharp')().toBuffer).toHaveBeenCalled()
   })
 })

@@ -8,6 +8,7 @@ export interface ImageTransformResponse {
     original: string
     thumb: string
   }
+  metadata: any
 }
 
 export interface TransformImage {

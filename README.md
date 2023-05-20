@@ -47,7 +47,13 @@ docker-compose up -d
 yarn install or npm install
 ```
 
-<h3></h3>
+<h3>
+  3. Run application
+</h3>
+
+```
+ yarn start or npm start
+```
 
 ```
 app running by default on port 3000 🚀🚀🚀🚀🚀
@@ -68,4 +74,9 @@ POST /
 ## 🧪🧪 Running tests e2e with jest
 ```
   npm run test:e2e or yarn test:e2e
+````
+
+## 🧪🧪 Running tests unit with jest
+```
+  npm run test or yarn test
 ````

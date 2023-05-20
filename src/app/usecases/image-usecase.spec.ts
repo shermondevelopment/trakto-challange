@@ -2,6 +2,7 @@
 import { TransformImageUseCase } from './image-usecase'
 import { IImageRepository } from '../repositories/image-irepository'
 import { ImageTransformResponse } from '../domain/image'
+import axios from 'axios'
 
 jest.mock('axios', () => ({
   default: {
@@ -81,5 +82,29 @@ describe('TransformImageUseCase', () => {
     )
     expect(require('sharp')().resize).toHaveBeenCalledWith(720, 540)
     expect(require('sharp')().toBuffer).toHaveBeenCalled()
+  })
+
+  it('should return an error if the axios request fails', async () => {
+    const imageOptions = {
+      image: 'https://myimage.com/image.jpg',
+      compress: 0.8
+    }
+
+    jest
+      .spyOn(axios, 'get')
+      .mockRejectedValue(new Error('Failed to fetch image'))
+
+    const expectedError = {
+      errors: [
+        {
+          code: 500,
+          message: 'Error: Failed to fetch image'
+        }
+      ]
+    }
+
+    const result = await transformImageUseCase.execute(imageOptions)
+
+    expect(result).toEqual(expectedError)
   })
 })
